@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using GTRunner.Forms;
+using log4net.Config;
 
 namespace GTRunner
 {
@@ -11,6 +12,8 @@ namespace GTRunner
 		[STAThread]
 		static void Main()
 		{
+			XmlConfigurator.Configure();
+
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm());
