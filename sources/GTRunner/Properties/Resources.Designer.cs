@@ -59,5 +59,50 @@ namespace GTRunner.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application started..
+        /// </summary>
+        internal static string ApplicationStarted {
+            get {
+                return ResourceManager.GetString("ApplicationStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application stopped..
+        /// </summary>
+        internal static string ApplicationStopped {
+            get {
+                return ResourceManager.GetString("ApplicationStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application terminated..
+        /// </summary>
+        internal static string ApplicationTerminated {
+            get {
+                return ResourceManager.GetString("ApplicationTerminated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to show exception window..
+        /// </summary>
+        internal static string FailedToShowExceptionWindow {
+            get {
+                return ResourceManager.GetString("FailedToShowExceptionWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled error occurred..
+        /// </summary>
+        internal static string UnhandledErrorOccurred {
+            get {
+                return ResourceManager.GetString("UnhandledErrorOccurred", resourceCulture);
+            }
+        }
     }
 }
