@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 using Castle.Core.Logging;
 using GTRunner.Forms;
 using GTRunner.Properties;
@@ -25,14 +27,30 @@ namespace GTRunner.Services.Common
 
 		#endregion Constructors
 
+		#region Methods
+
+		public void Attach()
+		{
+			if (Debugger.IsAttached)
+			{
+				return;
+			}
+
+			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+			Application.ThreadException += Application_ThreadException;
+			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+		}
+
+		#endregion Methods
+
 		#region Event handlers
 
-		public void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+		private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			HandleException(e.Exception);
 		}
 
-		public void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			HandleException(e.ExceptionObject as Exception);
 		}

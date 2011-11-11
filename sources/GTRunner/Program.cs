@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using Castle.Facilities.Logging;
 using Castle.Windsor;
@@ -36,12 +35,6 @@ namespace GTRunner
 
 		#region Helpers
 
-		private static void AttachExceptionManager(UnhandledExceptionManager exceptionManager)
-		{
-			Application.ThreadException += exceptionManager.Application_ThreadException;
-			AppDomain.CurrentDomain.UnhandledException += exceptionManager.CurrentDomain_UnhandledException;
-		}
-
 		private static IWindsorContainer GetContainer()
 		{
 			var container = new WindsorContainer().Install(FromAssembly.This());
@@ -54,19 +47,12 @@ namespace GTRunner
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			if (!Debugger.IsAttached)
-			{
-				Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-			}
 
 			using (var container = GetContainer())
 			{
 				var exceptionManager = container.Resolve<UnhandledExceptionManager>();
-				if (!Debugger.IsAttached)
-				{
-					AttachExceptionManager(exceptionManager);
-				}
-
+				exceptionManager.Attach();
+				//throw new Exception("test");
 				var mainForm = container.Resolve<MainForm>();
 				Application.Run(mainForm);
 			}
