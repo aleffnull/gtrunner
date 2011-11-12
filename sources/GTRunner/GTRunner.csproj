@@ -76,9 +76,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Common\UnhandledExceptionManager.cs" />
+    <Compile Include="Services\Common\ExceptionsHandler.cs" />
+    <Compile Include="Services\Common\ExceptionsManager.cs" />
     <Compile Include="Services\Container\FormsInstaller.cs" />
-    <Compile Include="Services\Container\ManagersInstaller.cs" />
+    <Compile Include="Services\Container\CommonServicesInstaller.cs" />
     <EmbeddedResource Include="Forms\ExceptionForm.en.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -50,9 +50,11 @@ namespace GTRunner
 
 			using (var container = GetContainer())
 			{
-				var exceptionManager = container.Resolve<UnhandledExceptionManager>();
-				exceptionManager.Attach();
-				//throw new Exception("test");
+				var exceptionManager = container.Resolve<ExceptionsManager>();
+				exceptionManager.SetMode();
+				var exceptionsHandler = container.Resolve<ExceptionsHandler>();
+				exceptionsHandler.Attach();
+
 				var mainForm = container.Resolve<MainForm>();
 				Application.Run(mainForm);
 			}
