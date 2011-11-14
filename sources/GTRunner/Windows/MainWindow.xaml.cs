@@ -16,7 +16,7 @@ namespace GTRunner.Windows
 		private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
 		{
 			Title = "Loaded";
-			throw new Exception("Test error");
+			//throw new Exception("Test error");
 		}
 	}
 }
