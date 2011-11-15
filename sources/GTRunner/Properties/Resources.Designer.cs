@@ -59,5 +59,14 @@ namespace GTRunner.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled exception was caught, application is terminating..
+        /// </summary>
+        internal static string UnhandledExceptionCaught {
+            get {
+                return ResourceManager.GetString("UnhandledExceptionCaught", resourceCulture);
+            }
+        }
     }
 }

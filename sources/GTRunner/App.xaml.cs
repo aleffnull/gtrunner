@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Threading;
 using Castle.Facilities.Logging;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using GTRunner.Services.Common;
 using log4net.Config;
 
 namespace GTRunner
@@ -15,12 +17,28 @@ namespace GTRunner
 
 		#endregion Fields
 
+		#region Properties
+
+		private UnhandledExceptionsManager ExceptionsManager
+		{
+			get { return container.Resolve<UnhandledExceptionsManager>(); }
+		}
+
+		#endregion Properties
+
 		#region Event handlers
+
+		private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+		{
+			ExceptionsManager.Handle(e.Exception);
+			e.Handled = true;
+		}
 
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			XmlConfigurator.Configure();
 			container = GetContainer();
+
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 		}
 
@@ -32,9 +50,9 @@ namespace GTRunner
 			}
 		}
 
-		void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			//
+			ExceptionsManager.Handle(e.ExceptionObject as Exception);
 		}
 
 		#endregion Event handlers

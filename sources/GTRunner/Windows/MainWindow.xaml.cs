@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace GTRunner.Windows
 {
@@ -13,10 +14,14 @@ namespace GTRunner.Windows
 
 		#endregion Constructors
 
-		private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
+		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			Title = "Loaded";
-			//throw new Exception("Test error");
+		}
+
+		private void button1_Click(object sender, RoutedEventArgs e)
+		{
+			throw new Exception("Test error");
 		}
 	}
 }
