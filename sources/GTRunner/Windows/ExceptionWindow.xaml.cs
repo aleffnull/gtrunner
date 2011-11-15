@@ -1,26 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GTRunner.Windows
 {
-	/// <summary>
-	/// Interaction logic for ExceptionWindow.xaml
-	/// </summary>
-	public partial class ExceptionWindow : Window
+	public partial class ExceptionWindow
 	{
+		#region Constructors
+
 		public ExceptionWindow()
 		{
 			InitializeComponent();
 		}
+
+		#endregion Constructors
+
+		#region Methods
+
+		public void SetException(Exception exception)
+		{
+			ExceptionTextBox.Text = exception.ToString();
+		}
+
+		#endregion Methods
+
+		#region Event handlers
+
+		private void OkButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			Close();
+		}
+
+		#endregion Event handlers
 	}
 }

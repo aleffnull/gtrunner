@@ -57,6 +57,7 @@ namespace GTRunner.Services.Common
 		{
 			try
 			{
+				exceptionWindow.SetException(exceptionToShow);
 				exceptionWindow.ShowDialog();
 			}
 			catch (Exception exception)
