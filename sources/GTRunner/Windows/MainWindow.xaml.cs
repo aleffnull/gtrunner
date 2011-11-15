@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-
-namespace GTRunner.Windows
+﻿namespace GTRunner.Windows
 {
 	public partial class MainWindow
 	{
@@ -13,10 +10,5 @@ namespace GTRunner.Windows
 		}
 
 		#endregion Constructors
-
-		private void button1_Click(object sender, RoutedEventArgs e)
-		{
-			throw new Exception("Test error");
-		}
 	}
 }
