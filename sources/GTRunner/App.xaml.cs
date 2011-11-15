@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
 using Castle.Facilities.Logging;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using GTRunner.Services.Common;
+using GTRunner.Windows;
 using log4net.Config;
 
 namespace GTRunner
@@ -19,9 +21,14 @@ namespace GTRunner
 
 		#region Properties
 
+		private IWindsorContainer Container
+		{
+			get { return container ?? (container = GetContainer()); }
+		}
+
 		private UnhandledExceptionsManager ExceptionsManager
 		{
-			get { return container.Resolve<UnhandledExceptionsManager>(); }
+			get { return Container.Resolve<UnhandledExceptionsManager>(); }
 		}
 
 		#endregion Properties
@@ -37,17 +44,12 @@ namespace GTRunner
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			XmlConfigurator.Configure();
-			container = GetContainer();
-
-			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+			RunApplication();
 		}
 
 		private void App_OnExit(object sender, ExitEventArgs e)
 		{
-			if (container != null)
-			{
-				container.Dispose();
-			}
+			Container.Dispose();
 		}
 
 		private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -65,6 +67,18 @@ namespace GTRunner
 			container.AddFacility<LoggingFacility>(f => f.LogUsing(LoggerImplementation.Log4net).WithAppConfig());
 
 			return container;
+		}
+
+		private void RunApplication()
+		{
+			if (!Debugger.IsAttached)
+			{
+				AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+			}
+
+			ShutdownMode = ShutdownMode.OnMainWindowClose;
+			MainWindow = Container.Resolve<MainWindow>();
+			MainWindow.Show();
 		}
 
 		#endregion Helpers
